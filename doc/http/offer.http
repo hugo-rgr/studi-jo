@@ -1,0 +1,28 @@
+### List offers
+GET http://localhost:8080/api/offer
+
+### Get one Offer
+GET http://localhost:8080/api/offer/1
+
+### Create Offer
+POST http://localhost:8080/api/offer
+Content-Type: application/json
+
+{
+  "name": "Offre speciale",
+  "description": "Pour une personne",
+  "price": 5.55
+}
+
+### Update Offer
+PUT http://localhost:8080/api/offer/1
+Content-Type: application/json
+
+{
+  "name": "Offre limitee",
+  "description" : "Pour deux personnes",
+  "price": 3.0
+}
+
+### Delete Offer
+DELETE http://localhost:8080/api/offer/1
