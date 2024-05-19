@@ -2,7 +2,7 @@ package com.studi.jo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @SpringBootApplication
 public class HomeController {
@@ -11,9 +11,9 @@ public class HomeController {
         SpringApplication.run(com.studi.jo.HomeController.class, args);
     }
 
-    @RequestMapping("/")
-    public String helloWorld() {
-        return "hello";
+    @GetMapping("/")
+    public String index() {
+        return "index";
     }
 
 }

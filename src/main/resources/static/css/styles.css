@@ -1,0 +1,36 @@
+/* General styling */
+
+body, h1, h2, h3, h4, h5, h6, p {
+    color: black;
+}
+
+.btn-primary,
+.btn-primary:focus {
+    background-color: #6f42c1;
+    border-color: #6f42c1;
+    color: white;
+    box-shadow: none;
+}
+
+.btn-primary:hover {
+    background-color: #5a379f;
+    border-color: #5a379f;
+    color: white;
+}
+
+.btn-primary:active {
+    background-color: #4b2c82 !important;
+    border-color: #4b2c82 !important;
+    box-shadow: 0 0 0 0.2rem rgba(75, 44, 130, 0.5) !important;
+    color: white;
+}
+
+.navbar-nav .nav-link:not(.btn-primary) {
+    margin-left: 30px;
+    margin-right: 20px;
+}
+
+.navbar-nav .nav-link:not(.btn-primary):hover {
+    background-color: #f8f9fa;
+    border-radius: 10px !important;
+}
