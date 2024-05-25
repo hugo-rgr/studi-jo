@@ -1,0 +1,10 @@
+### Create User
+POST http://localhost:8080/api/user/create
+Content-Type: application/json
+
+{
+  "first_name": "Harry",
+  "last_name": "Potter",
+  "email": "testa@example.com",
+  "password": "incendio.Aguamenti7+"
+}

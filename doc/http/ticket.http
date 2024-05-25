@@ -1,0 +1,8 @@
+### Create Ticket
+POST http://localhost:8080/api/ticket/create
+Content-Type: application/json
+
+{
+  "offerName": "offre speciale",
+  "purchaseKey": "ppp"
+}
