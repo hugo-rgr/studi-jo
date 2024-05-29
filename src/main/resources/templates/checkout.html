@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments::commonHead}">
+  <title>Paiement - Jeux Olympiques de France 2024</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body class="bg-light">
+
+<div th:insert="~{fragments::navbar}"></div>
+
+<!-- Cart -->
+<section class="py-5">
+  <div class="container">
+    <h1 class="text-center fw-bold mb-4">Votre Panier</h1>
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card shadow">
+          <ul class="list-group list-group-flush" id="cartItems">
+            <!-- Cart items -->
+          </ul>
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <span>Total</span>
+              <span id="totalPrice">0.00€</span>
+            </div>
+            <button class="btn btn-primary mt-3 w-100" id="stripeCheckoutButton">Payer avec Stripe</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div th:insert="~{fragments::footer}"></div>
+
+<div th:insert="~{fragments::commonJsImports}"></div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    renderCart();
+    const totalPrice = calculateTotalPrice();
+
+    document.getElementById('stripeCheckoutButton').addEventListener('click', function() {
+      doStripeCheckout(totalPrice);
+    });
+  });
+
+  function renderCart() {
+    const cartItems = JSON.parse(sessionStorage.getItem('offers')) || [];
+    const cartList = document.getElementById('cartItems');
+    cartList.innerHTML = '';
+    cartItems.forEach(item => {
+      const itemHTML = `
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>${item.name}</div>
+                <div class="fw-bold">€${(item.price * item.quantity).toFixed(2)}</div>
+            </li>
+        `;
+      cartList.innerHTML += itemHTML;
+    });
+  }
+
+  function calculateTotalPrice() {
+    const cartItems = JSON.parse(sessionStorage.getItem('offers')) || [];
+    const totalPrice = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+    document.getElementById('totalPrice').textContent = totalPrice.toFixed(2) + '€';
+    return totalPrice;
+  }
+
+  async function doStripeCheckout(totalPrice) {
+    try {
+      const response = await fetch('/api/purchase/charge', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ amount: totalPrice })
+      });
+      const result = await response.json();
+      if (result.status === 'succeeded') {
+        window.location.href = '/checkout/validated';
+      } else {
+        alert('Paiement échoué: ' + result.status);
+      }
+    } catch (error) {
+      console.error('Erreur:', error);
+      alert('Une erreur est survenue lors du paiement.');
+    }
+  }
+
+</script>
+
+</body>
+</html>
