@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.owasp.encoder.Encode;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import javax.persistence.Column;
@@ -20,7 +19,7 @@ import javax.persistence.Embeddable;
 @ToString
 public class OfferDescription {
 
-    @Column(name = "offer_description", nullable = false)
+    @Column(name = "offer_description")
     @Size(max = 60, message = "Offer description length cannot be greater than 60 characters")
     private String value;
 

@@ -6,21 +6,18 @@ import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode
 @ToString
 public class Password {
-
-    //TODO: see sanitization
 
     @Column(name = "password", nullable = false)
     @NotBlank(message = "Password cannot be null or empty")
@@ -29,13 +26,13 @@ public class Password {
     private String value;
 
     public Password(String value){
-        this.value = value;
+        this.value = encode(value);
     }
 
-    //protected String encode(String password){
-    //    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    //    return passwordEncoder.encode(password);
-    //}
+    protected String encode(String password){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.encode(password);
+    }
 
     @JsonValue
     public String getValue(){
@@ -44,6 +41,6 @@ public class Password {
 
     @JsonCreator
     public void setValue(String value){
-        this.value = value;
+        this.value = encode(value);
     }
 }

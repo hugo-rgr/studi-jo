@@ -2,8 +2,13 @@ package com.studi.jo.user.domain;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.Collections;
 
 // Utilisateurs
 
@@ -16,28 +21,63 @@ import javax.persistence.*;
 @Setter
 @EqualsAndHashCode
 @ToString
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @Embedded
-    private FirstName firstName;
+    FirstName firstName;
 
     @Embedded
-    private LastName lastName;
+    LastName lastName;
 
     @Embedded
-    private Email email;
+    Email email;
 
     @Embedded
-    private Password password;
+    Password pass;
 
     @Embedded
-    private UserKey userKey;
+    UserKey userKey;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
-    private Role role;
+    Role role;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singletonList(new SimpleGrantedAuthority(this.getRole().getAuthority()));
+    }
+
+    @Override
+    public String getPassword() {
+        return this.getPass().getValue();
+    }
+
+    @Override
+    public String getUsername() {
+        return this.getEmail().getValue();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
