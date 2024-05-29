@@ -18,7 +18,6 @@ public class PurchaseController {
     private PurchaseService purchaseService;
 
     @PostMapping("/create")
-    //@PreAuthorize("isAuthenticated()")
     public Purchase createPurchase(@RequestBody PurchaseDTO purchaseDTO) {
         return purchaseService.createPurchase(purchaseDTO);
     }

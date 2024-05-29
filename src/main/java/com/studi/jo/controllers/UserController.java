@@ -23,7 +23,6 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/create")
-    //@PreAuthorize("!isAuthenticated()")
     public ResponseEntity<?> createUser(@Valid @RequestBody UserDTO userDTO) {
         logger.info("Creating new user: {}", userDTO);
         try {

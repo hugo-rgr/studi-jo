@@ -51,7 +51,6 @@ public class OfferController {
     }
 
     @PostMapping
-    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> createOffer(@Valid @RequestBody OfferDTO offerDTO) {
         logger.info("Creating new offer: {}", offerDTO);
         try {
@@ -64,7 +63,6 @@ public class OfferController {
     }
 
     @PutMapping("/{id}")
-    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> updateOffer(@PathVariable Long id, @Valid @RequestBody OfferDTO offerDTO) {
         logger.info("Updating offer with id: {}", id);
         try {
@@ -95,7 +93,6 @@ public class OfferController {
     }
 
     @DeleteMapping("/{id}")
-    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> deleteOffer(@PathVariable Long id) {
         logger.info("Deleting offer with id: {}", id);
         try {

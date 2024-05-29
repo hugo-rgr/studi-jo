@@ -18,9 +18,9 @@ public class HomeController {
         return "index";
     }
 
-    //@GetMapping("/admin")
-    //public String adminPage() {
-    //    return "index";
-    //}
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
 
 }

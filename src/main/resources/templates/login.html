@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head th:insert="~{fragments::commonHead}">
+  <title>Jeux Olympiques France - Authentification</title>
+</head>
+<body class="bg-light">
+<div th:insert="~{fragments::navbar}"></div>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <!-- Login -->
+    <div class="col-md-6">
+      <div class="card shadow mb-5">
+        <div class="card-body">
+          <h3 class="card-title text-center">Connexion</h3>
+          <form th:action="@{/login}" method="post">
+            <div class="mb-3">
+              <label for="username" class="form-label">Email</label>
+              <input type="email" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Mot de passe</label>
+              <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary">Se connecter</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Register -->
+    <div class="col-md-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <h3 class="card-title text-center">Inscription</h3>
+          <form th:action="@{/api/user/register}" method="post">
+            <div class="mb-3">
+              <label for="register_firstname" class="form-label">Prénom</label>
+              <input type="text" class="form-control" id="register_firstname" name="firstName" required>
+            </div>
+            <div class="mb-3">
+              <label for="register_lastname" class="form-label">Nom de famille</label>
+              <input type="text" class="form-control" id="register_lastname" name="lastName" required>
+            </div>
+            <div class="mb-3">
+              <label for="register_email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="register_email" name="email" required>
+            </div>
+            <div class="mb-3">
+              <label for="register_password" class="form-label">Mot de passe</label>
+              <input type="password" class="form-control" id="register_password" name="password" required>
+            </div>
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-success">S'inscrire</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div th:insert="~{fragments::footer}"></div>
+<div th:insert="~{fragments::commonJsImports}"></div>
+</body>
+</html>

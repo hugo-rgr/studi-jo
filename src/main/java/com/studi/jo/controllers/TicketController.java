@@ -15,7 +15,6 @@ public class TicketController {
     private TicketService ticketService;
 
     @PostMapping("/create")
-    //@PreAuthorize("isAuthenticated()")
     public Ticket createTicket(@RequestBody TicketDTO ticketDTO) {
         return ticketService.createTicket(ticketDTO);
     }
