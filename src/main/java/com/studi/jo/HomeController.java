@@ -13,10 +13,10 @@ public class HomeController {
         SpringApplication.run(com.studi.jo.HomeController.class, args);
     }
 
-    //@GetMapping("/")
-    //public String helloWorld() {
-    //    return "index";
-    //}
+    @GetMapping("/")
+    public String index() {
+        return "index";
+    }
 
     //@GetMapping("/admin")
     //public String adminPage() {
