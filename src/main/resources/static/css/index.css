@@ -6,7 +6,7 @@
 
 .hero-section {
     position: relative;
-    background: url('https://img.freepik.com/photos-gratuite/jeux-olympiques-paris-2024-illustration-concept-image-generee-par-ia_268835-6125.jpg?w=2000&t=st=1716144598~exp=1716145198~hmac=571759445084309f16f5b1e918ef97f9c82826c3cc0e29b02339202bbdb43a7f') no-repeat center center;
+    background: url('/images/jo-paris-2024.jpg') no-repeat center center;
     background-size: cover;
     height: 93vh; /* Should fit in the screen with the navbar */
     display: flex;
