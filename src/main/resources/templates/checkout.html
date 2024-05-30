@@ -45,7 +45,7 @@
   });
 
   function renderCart() {
-    const cartItems = JSON.parse(sessionStorage.getItem('offers')) || [];
+    const cartItems = (JSON.parse(sessionStorage.getItem('offers')) || []).filter(offer => offer.quantity > 0);
     const cartList = document.getElementById('cartItems');
     cartList.innerHTML = '';
     cartItems.forEach(item => {
@@ -60,7 +60,8 @@
   }
 
   function calculateTotalPrice() {
-    const cartItems = JSON.parse(sessionStorage.getItem('offers')) || [];
+    var cartItems = JSON.parse(sessionStorage.getItem('offers')) || [];
+    cartItems.filter()
     const totalPrice = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
     document.getElementById('totalPrice').textContent = totalPrice.toFixed(2) + '€';
     return totalPrice;
