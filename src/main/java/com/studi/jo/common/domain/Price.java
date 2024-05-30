@@ -1,5 +1,6 @@
 package com.studi.jo.common.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
@@ -42,5 +43,10 @@ public class Price {
 
     public void setValue(BigDecimal value){
         this.value = forceFloorRounding(value);
+    }
+
+    @JsonCreator
+    public static Price fromValue(BigDecimal value){
+        return new Price(value);
     }
 }

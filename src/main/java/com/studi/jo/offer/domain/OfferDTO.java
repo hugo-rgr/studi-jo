@@ -16,7 +16,6 @@ public class OfferDTO {
     OfferName name;
 
     @Valid
-    @NotNull
     OfferDescription description;
 
     @Valid

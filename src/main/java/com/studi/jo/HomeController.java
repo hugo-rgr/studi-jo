@@ -42,4 +42,14 @@ public class HomeController {
         return "offers";
     }
 
+    @GetMapping("/checkout")
+    public String checkout(){
+        return "checkout";
+    }
+
+    @GetMapping("/admin/dashboard")
+    public String adminDashboard() {
+        return "admin-dashboard";
+    }
+
 }

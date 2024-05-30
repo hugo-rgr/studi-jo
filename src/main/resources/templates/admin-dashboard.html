@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments::commonHead}">
+  <title>Admin Dashboard - Olympic Games France</title>
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+<!-- Navbar -->
+<div th:insert="~{fragments::navbar}"></div>
+
+<!-- Admin Dashboard Header -->
+<header class="bg-white shadow mb-5">
+  <div class="container py-6">
+    <h1 class="display-4 text-center">
+      Admin Dashboard
+    </h1>
+  </div>
+</header>
+
+<!-- Sales Overview Section -->
+<main class="py-8 flex-grow-1">
+  <div class="container">
+    <h2 class="h4 font-weight-bold text-dark mb-4">Sales Overview</h2>
+    <div class="row" id="salesOverviewContainer">
+      <!-- Content from javascript -->
+    </div>
+  </div>
+</main>
+
+<!-- Manage Offers Section -->
+<section id="manage-offers" class="py-8 flex-grow-1">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="h4 font-weight-bold text-dark mb-4">Manage Offers</h2>
+        <div class="mt-4">
+          <!-- Add New Offer Button -->
+          <button class="btn btn-success mb-4" data-bs-toggle="modal" data-bs-target="#addOfferModal">
+            <i class="fas fa-plus-circle"></i> Add New Offer
+          </button>
+          <!-- Offers Table -->
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+              <thead class="bg-dark text-white">
+              <tr>
+                <th class="text-left">Id</th>
+                <th class="text-left">Offer Name</th>
+                <th class="text-left">Price</th>
+                <th class="text-left">Description</th>
+                <th class="text-left">Sold</th>
+                <th class="text-left">Actions</th>
+              </tr>
+              </thead>
+              <tbody class="text-gray-700">
+              <!-- Offer Rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Add Offer Modal -->
+<div class="modal fade" id="addOfferModal" tabindex="-1" aria-labelledby="addOfferModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addOfferModalLabel">Add New Offer</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="newOfferForm">
+          <div class="form-group">
+            <label for="offerName">Offer Name</label>
+            <input type="text" class="form-control" id="offerName" placeholder="Enter name" required maxlength="50">
+          </div>
+          <div class="form-group">
+            <label for="offerPrice">Price</label>
+            <div class="input-wrapper" style="position: relative;">
+              <input type="number" class="form-control" id="offerPrice" placeholder="Enter price" step="0.01" min="0" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="offerDescription">Description</label>
+            <textarea class="form-control" id="offerDescription" placeholder="Enter description"></textarea>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary" id="saveOffer">Add</button>
+            <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Offer Modal -->
+<div class="modal fade" id="editOfferModal" tabindex="-1" aria-labelledby="editOfferModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editOfferModalLabel">Edit Offer</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editOfferForm">
+          <input type="hidden" id="editOfferId" name="offerId">
+          <div class="form-group">
+            <label for="editOfferName">Offer Name</label>
+            <input type="text" class="form-control" id="editOfferName" placeholder="Enter name" required maxlength="50">
+          </div>
+          <div class="form-group">
+            <label for="editOfferPrice">Price</label>
+            <div class="input-wrapper" style="position: relative;">
+              <input type="number" class="form-control" id="editOfferPrice" placeholder="Enter price" step="0.01" min="0" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="editOfferDescription">Description</label>
+            <textarea class="form-control" id="editOfferDescription" placeholder="Enter description"></textarea>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary" id="editOffer">Update</button>
+            <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Offer Modal -->
+<div class="modal fade" id="deleteOfferModal" tabindex="-1" aria-labelledby="deleteOfferModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteOfferModalLabel">Confirm Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this offer?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteOffer">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div th:insert="~{fragments::footer}"></div>
+
+<div th:insert="~{fragments::commonJsImports}"></div>
+<script>
+  $(document).ready(function() {
+    fetchOffers();
+
+    function fetchOffers() {
+      $.ajax({
+        url: '/api/offer',
+        method: 'GET',
+        success: function(offers) {
+          updateOffersTable(offers);
+          updateSalesOverview(offers);
+        },
+        error: function(error) {
+          console.error("Failed to fetch offers:", error);
+        }
+      });
+    }
+
+    function updateOffersTable(offers) {
+      let tableBody = $('.table tbody');
+      tableBody.empty();
+      offers.forEach(function(offer) {
+        tableBody.append(
+                `<tr>
+          <td>${offer.id}</td>
+          <td>${offer.name}</td>
+          <td>${offer.price.toFixed(2)}</td>
+          <td>${offer.description || ''}</td>
+          <td>${offer.sold ? offer.sold : 0}</td>
+          <td>
+            <button class="btn btn-primary" onclick="openEditOfferModal(${offer.id})">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn btn-danger" onclick="openDeleteOfferModal(${offer.id})">
+                <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>`
+        );
+      });
+    }
+
+    function updateSalesOverview(offers) {
+      const container = $('#salesOverviewContainer');
+      container.empty();
+
+      offers.forEach(offer => {
+        const offerElement = `
+        <div class="col-md-4 mb-4">
+            <div class="p-4 bg-white rounded-lg shadow">
+                <div class="h4 font-weight-bold text-gray-800">${offer.name}</div>
+                <div class="mt-1 h1 font-weight-bold text-primary">${offer.sold ? offer.sold : 0}</div>
+            </div>
+        </div>
+      `;
+        container.append(offerElement);
+      });
+    }
+
+    // Save Offer
+    $('#newOfferForm').on('submit', function(e) {
+      e.preventDefault();
+      var offerName = $('#offerName').val().trim();
+      var offerPrice = parseFloat($('#offerPrice').val()).toFixed(2);
+      var offerDescription = $('#offerDescription').val().trim() || '';
+      if (isNaN(offerPrice) || offerPrice < 0) {
+        alert('Please enter a valid price.');
+        return;
+      }
+
+      $.ajax({
+        url: '/api/offer',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ name: offerName, price: offerPrice, description: offerDescription }),
+        success: function(response) {
+          $('#addOfferModal').modal('hide');
+          fetchOffers();
+          $('#newOfferForm')[0].reset();
+        },
+        error: function(error) {
+          alert('Error saving offer.');
+          console.error("Failed to save offer:", error);
+        }
+      });
+    });
+
+    $('#editOfferForm').on('submit', function(e) {
+      e.preventDefault();
+      var offerId = $('#editOfferId').val();
+      var offerName = $('#editOfferName').val().trim();
+      var offerPrice = parseFloat($('#editOfferPrice').val()).toFixed(2);
+      var offerDescription = $('#editOfferDescription').val().trim();
+
+      $.ajax({
+        url: '/api/offer/' + offerId,
+        method: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify({ name: offerName, price: offerPrice, description: offerDescription }),
+        success: function(response) {
+          $('#editOfferModal').modal('hide');
+          fetchOffers();
+          $('#editOfferForm')[0].reset();
+        },
+        error: function(error) {
+          alert('Error updating offer.');
+          console.error("Failed to update offer:", error);
+        }
+      });
+    });
+
+    $('#confirmDeleteOffer').click(function() {
+      if (currentDeletingOfferId !== null) {
+        $.ajax({
+          url: '/api/offer/' + currentDeletingOfferId,
+          method: 'DELETE',
+          success: function(response) {
+            $('#deleteOfferModal').modal('hide');
+            fetchOffers();
+          },
+          error: function(error) {
+            alert('Error deleting offer.');
+            console.error("Failed to delete offer:", error);
+          }
+        });
+      }
+    });
+  });
+
+  function openEditOfferModal(offerId) {
+    $.ajax({
+      url: '/api/offer/' + offerId,
+      method: 'GET',
+      success: function(response) {
+        $('#editOfferId').val(response.id);
+        $('#editOfferName').val(response.name);
+        $('#editOfferPrice').val(response.price.toFixed(2));
+        $('#editOfferDescription').val(response.description);
+        $('#editOfferModal').modal('show');
+      },
+      error: function(error) {
+        alert('Error fetching offer details.');
+        console.error("Failed to fetch offer details:", error);
+      }
+    });
+  }
+
+  let currentDeletingOfferId = null;
+
+  function openDeleteOfferModal(offerId) {
+    currentDeletingOfferId = offerId;
+    $('#deleteOfferModal').modal('show');
+  }
+</script>
+</body>
+</html>
