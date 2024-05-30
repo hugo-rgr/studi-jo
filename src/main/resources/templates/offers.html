@@ -4,7 +4,7 @@
     <title>Réservation E-Ticket - Jeux Olympiques France</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
-<body class="bg-light">
+<body class="d-flex flex-column min-vh-100 bg-light">
 
 <div th:insert="~{fragments::navbar}"></div>
 
@@ -16,7 +16,7 @@
 </div>
 
 <!-- Offers Section -->
-<section id="offers" class="py-5">
+<section id="offers" class="py-5 flex-grow-1">
     <div class="container">
         <h2 class="text-center font-weight-bold">Offres de Billets</h2>
         <p class="text-muted text-center">Choisissez votre offre :</p>
@@ -75,7 +75,7 @@
         <div class="card h-100 shadow-sm">
           <div class="card-body">
             <h5 class="card-title">${offer.name}</h5>
-            <p class="card-text" id="price${index}">Price: ${parseFloat(offer.price).toFixed(2)}€</p>
+            <p class="card-text" id="price${index}">Prix : ${parseFloat(offer.price).toFixed(2)}€</p>
             <div class="d-flex justify-content-center align-items-center mb-3 quantity-selectors">
               <button class="btn btn-outline-secondary change-quantity rounded-circle" data-id="${index}" data-action="decrease">-</button>
               <span class="text-center quantity" id="quantity${index}" style="min-width: 60px;">${offer.quantity}</span>
