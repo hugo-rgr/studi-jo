@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="~{fragments::commonHead}">
-  <title>Admin Dashboard - Olympic Games France</title>
+  <title>Tableau de bord Admin - Jeux Olympiques de France 2024</title>
 </head>
 <body class="d-flex flex-column min-vh-100 bg-light">
 
@@ -12,7 +12,7 @@
 <header class="bg-white shadow mb-5">
   <div class="container py-6">
     <h1 class="display-4 text-center">
-      Admin Dashboard
+      Tableau de bord Admin
     </h1>
   </div>
 </header>
@@ -20,7 +20,7 @@
 <!-- Sales Overview Section -->
 <main class="py-8 flex-grow-1">
   <div class="container">
-    <h2 class="h4 font-weight-bold text-dark mb-4">Sales Overview</h2>
+    <h2 class="h4 font-weight-bold text-dark mb-4">Aperçu des ventes</h2>
     <div class="row" id="salesOverviewContainer">
       <!-- Content from javascript -->
     </div>
@@ -32,11 +32,11 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h2 class="h4 font-weight-bold text-dark mb-4">Manage Offers</h2>
+        <h2 class="h4 font-weight-bold text-dark mb-4">Gérer les offres</h2>
         <div class="mt-4">
           <!-- Add New Offer Button -->
           <button class="btn btn-success mb-4" data-bs-toggle="modal" data-bs-target="#addOfferModal">
-            <i class="fas fa-plus-circle"></i> Add New Offer
+            <i class="fas fa-plus-circle"></i> Ajouter une offre
           </button>
           <!-- Offers Table -->
           <div class="table-responsive">
@@ -44,10 +44,10 @@
               <thead class="bg-dark text-white">
               <tr>
                 <th class="text-left">Id</th>
-                <th class="text-left">Offer Name</th>
-                <th class="text-left">Price</th>
+                <th class="text-left">Nom de l'offre</th>
+                <th class="text-left">Prix</th>
                 <th class="text-left">Description</th>
-                <th class="text-left">Sold</th>
+                <th class="text-left">Ventes</th>
                 <th class="text-left">Actions</th>
               </tr>
               </thead>
@@ -67,28 +67,28 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addOfferModalLabel">Add New Offer</h5>
+        <h5 class="modal-title" id="addOfferModalLabel">Ajouter une offre</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
         <form id="newOfferForm">
           <div class="form-group">
-            <label for="offerName">Offer Name</label>
-            <input type="text" class="form-control" id="offerName" placeholder="Enter name" required maxlength="50">
+            <label for="offerName">Nom de l'offre</label>
+            <input type="text" class="form-control" id="offerName" placeholder="Entrez le nom" required maxlength="50">
           </div>
           <div class="form-group">
-            <label for="offerPrice">Price</label>
+            <label for="offerPrice">Prix</label>
             <div class="input-wrapper" style="position: relative;">
-              <input type="number" class="form-control" id="offerPrice" placeholder="Enter price" step="0.01" min="0" required>
+              <input type="number" class="form-control" id="offerPrice" placeholder="Entrez le prix" step="0.01" min="0" required>
             </div>
           </div>
           <div class="form-group">
             <label for="offerDescription">Description</label>
-            <textarea class="form-control" id="offerDescription" placeholder="Enter description"></textarea>
+            <textarea class="form-control" id="offerDescription" placeholder="Entrez la description"></textarea>
           </div>
           <div class="form-group">
-            <button type="submit" class="btn btn-primary" id="saveOffer">Add</button>
-            <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="saveOffer">Ajouter</button>
+            <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
           </div>
         </form>
       </div>
@@ -101,29 +101,29 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editOfferModalLabel">Edit Offer</h5>
+        <h5 class="modal-title" id="editOfferModalLabel">Modifier l'offre</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
         <form id="editOfferForm">
           <input type="hidden" id="editOfferId" name="offerId">
           <div class="form-group">
-            <label for="editOfferName">Offer Name</label>
-            <input type="text" class="form-control" id="editOfferName" placeholder="Enter name" required maxlength="50">
+            <label for="editOfferName">Nom de l'offre</label>
+            <input type="text" class="form-control" id="editOfferName" placeholder="Entrez le nom" required maxlength="50">
           </div>
           <div class="form-group">
-            <label for="editOfferPrice">Price</label>
+            <label for="editOfferPrice">Prix</label>
             <div class="input-wrapper" style="position: relative;">
-              <input type="number" class="form-control" id="editOfferPrice" placeholder="Enter price" step="0.01" min="0" required>
+              <input type="number" class="form-control" id="editOfferPrice" placeholder="Entrez le prix" step="0.01" min="0" required>
             </div>
           </div>
           <div class="form-group">
             <label for="editOfferDescription">Description</label>
-            <textarea class="form-control" id="editOfferDescription" placeholder="Enter description"></textarea>
+            <textarea class="form-control" id="editOfferDescription" placeholder="Entrez la description"></textarea>
           </div>
           <div class="form-group">
-            <button type="submit" class="btn btn-primary" id="editOffer">Update</button>
-            <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="editOffer">Mettre à jour</button>
+            <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
           </div>
         </form>
       </div>
@@ -136,15 +136,15 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="deleteOfferModalLabel">Confirm Delete</h5>
+        <h5 class="modal-title" id="deleteOfferModalLabel">Confirmer la suppression</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Are you sure you want to delete this offer?
+        Êtes-vous sûr de vouloir supprimer cette offre ?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger" id="confirmDeleteOffer">Delete</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteOffer">Supprimer</button>
       </div>
     </div>
   </div>
@@ -167,7 +167,7 @@
           updateSalesOverview(offers);
         },
         error: function(error) {
-          console.error("Failed to fetch offers:", error);
+          console.error("Failed to fetch offer:", error);
         }
       });
     }
@@ -220,7 +220,7 @@
       var offerPrice = parseFloat($('#offerPrice').val()).toFixed(2);
       var offerDescription = $('#offerDescription').val().trim() || '';
       if (isNaN(offerPrice) || offerPrice < 0) {
-        alert('Please enter a valid price.');
+        alert('Veuillez entrer un prix valide.');
         return;
       }
 
@@ -235,7 +235,7 @@
           $('#newOfferForm')[0].reset();
         },
         error: function(error) {
-          alert('Error saving offer.');
+          alert('Erreur lors de l\'enregistrement de l\'offre.');
           console.error("Failed to save offer:", error);
         }
       });
@@ -259,7 +259,7 @@
           $('#editOfferForm')[0].reset();
         },
         error: function(error) {
-          alert('Error updating offer.');
+          alert('Erreur lors de la mise à jour de l\'offre.');
           console.error("Failed to update offer:", error);
         }
       });
@@ -275,7 +275,7 @@
             fetchOffers();
           },
           error: function(error) {
-            alert('Error deleting offer.');
+            alert('Erreur lors de la suppression de l\'offre.');
             console.error("Failed to delete offer:", error);
           }
         });
@@ -295,8 +295,8 @@
         $('#editOfferModal').modal('show');
       },
       error: function(error) {
-        alert('Error fetching offer details.');
-        console.error("Failed to fetch offer details:", error);
+        alert('Erreur lors de la récupération des détails de l\'offre.');
+        console.error("Failed to get offer:", error);
       }
     });
   }
