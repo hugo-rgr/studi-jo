@@ -66,14 +66,13 @@
   }
 
   function calculateTotalPrice() {
-    var cartItems = JSON.parse(sessionStorage.getItem('offers')) || [];
-    cartItems.filter()
+    const cartItems = JSON.parse(sessionStorage.getItem('offers')) || [];
     const totalPrice = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
     document.getElementById('totalPrice').textContent = totalPrice.toFixed(2) + '€';
     return totalPrice;
   }
 
-  async function doStripeCheckout(totalPrice, offers) {
+  async function doStripeCheckout(totalPrice) {
     try {
       const cartItems = JSON.parse(sessionStorage.getItem('offers'));
 
