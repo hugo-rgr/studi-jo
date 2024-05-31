@@ -26,7 +26,7 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @NotNull
+    @NotNull(message = "offer name must not be null")
     String offerName;
 
     @Embedded
@@ -37,6 +37,7 @@ public class Ticket {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "validity_status")
+    @NotNull(message = "ticket validity status must not be null")
     TicketValidityStatus validityStatus;
 
 }

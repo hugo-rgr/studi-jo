@@ -70,12 +70,23 @@ public class OfferServiceIntegrationTest {
         OfferDTO offerDTO = new OfferDTO(new OfferName("Offer Name"), new Price(new BigDecimal("24.99")), new OfferDescription("Offer Description"));
         Offer offer = offerDTO.toOffer();
         offer.setSalesNumber(5);
-        when(offerRepository.findById(any(Long.class))).thenReturn(Optional.of(offer));
+        when(offerRepository.findByName(any(OfferName.class))).thenReturn(Optional.of(offer));
         when(offerRepository.save(any(Offer.class))).thenReturn(offer);
 
         Offer updatedOffer = offerService.updateOfferIncrementSales(offerDTO.getName(), 3);
 
         assertEquals(8, updatedOffer.getSalesNumber());
+    }
+
+    @Test
+    public void testGetOfferByName() {
+        OfferDTO offerDTO = new OfferDTO(new OfferName("Offer Name"), new Price(new BigDecimal("24.99")), new OfferDescription("Offer Description"));
+        Offer offer = offerDTO.toOffer();
+        when(offerRepository.findByName(any(OfferName.class))).thenReturn(Optional.of(offer));
+
+        Offer foundOffer = offerService.getOfferByName(new OfferName("Offer Name"));
+
+        assertEquals("Offer Name", foundOffer.getName().getValue());
     }
 
     @Test

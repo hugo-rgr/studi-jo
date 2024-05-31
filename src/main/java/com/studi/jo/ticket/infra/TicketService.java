@@ -53,15 +53,15 @@ public class TicketService {
         return null;
     }
 
-    public void updateTicketValidityStatus(Long id, TicketValidityStatus currentTicketValidityStatus, TicketValidityStatus action){
+    public void updateTicketValidityStatus(Long id, TicketValidityStatus currentTicketValidityStatus){
         if (currentTicketValidityStatus == TicketValidityStatus.VALID) {
             LocalDateTime currentDate = LocalDateTime.now();
             Ticket currentTicket = this.getTicketById(id);
             if (currentDate.isAfter(LocalDateTime.parse("2024-07-26T14:30:00")) && currentDate.isBefore(LocalDateTime.parse("2024-08-11T23:59:59"))) {
-                currentTicket.setValidityStatus(action);
+                currentTicket.setValidityStatus(TicketValidityStatus.USED);
                 ticketRepository.save(currentTicket);
             } else if (currentDate.isAfter(LocalDateTime.parse("2024-08-11T23:59:59"))) {
-                currentTicket.setValidityStatus(action);
+                currentTicket.setValidityStatus(TicketValidityStatus.EXPIRED);
                 ticketRepository.save(currentTicket);
             }
         }

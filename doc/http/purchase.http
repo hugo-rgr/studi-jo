@@ -1,13 +1,4 @@
-### Create Purchase
-POST http://localhost:8080/api/purchase/create
-Content-Type: application/json
-
-{
-  "listOffers": [1,2,1],
-  "totalPrice": "15.0"
-}
-
-### Charge
+### Charge with Stripe
 POST http://localhost:8080/api/purchase/charge
 Content-Type: application/json
 

@@ -11,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -21,26 +20,20 @@ public class Password {
 
     @Column(name = "password", nullable = false)
     @NotBlank(message = "Password cannot be null or empty")
-    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*+-]).{8,20}$",
-            message = "Password length should be 8-20 characters and should include at least one upper case letter, one lower case letter, one digit, and one special character.")
     private String value;
 
-    public Password(String value){
-        this.value = encode(value);
+    @JsonCreator
+    public Password(String rawPassword) {
+        this.value = encode(rawPassword);
     }
 
-    protected String encode(String password){
+    private String encode(String rawPassword) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.encode(password);
+        return passwordEncoder.encode(rawPassword);
     }
 
     @JsonValue
-    public String getValue(){
+    public String getValue() {
         return value;
-    }
-
-    @JsonCreator
-    public void setValue(String value){
-        this.value = encode(value);
     }
 }

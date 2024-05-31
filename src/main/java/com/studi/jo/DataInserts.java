@@ -6,7 +6,7 @@ import com.studi.jo.offer.domain.OfferDescription;
 import com.studi.jo.offer.domain.OfferName;
 import com.studi.jo.offer.infra.OfferService;
 import com.studi.jo.purchase.domain.PurchaseDTO;
-import com.studi.jo.purchase.service.PurchaseService;
+import com.studi.jo.purchase.infra.PurchaseService;
 import com.studi.jo.ticket.domain.TicketDTO;
 import com.studi.jo.ticket.infra.TicketService;
 import com.studi.jo.user.domain.*;
@@ -36,13 +36,13 @@ public class DataInserts implements CommandLineRunner {
     }
 
     public void dataInsertsForUser() {
-        UserDTO userClient = new UserDTO(new FirstName("John"), new LastName("Doe"), new Email("client@example.com"), new Password("Lorem5ipsum@+"));
+        UserDTO userClient = new UserDTO(new FirstName("John"), new LastName("Doe"), new Email("client@example.com"), "Lorem5ipsum@+");
         userService.createUser(userClient, Role.CLIENT);
 
-        UserDTO userEmployee = new UserDTO(new FirstName("Employee"), new LastName("Em"), new Email("employee@example.com"), new Password("Lorem5ipsum@+"));
+        UserDTO userEmployee = new UserDTO(new FirstName("Employee"), new LastName("Em"), new Email("employee@example.com"), "Lorem5ipsum@+");
         userService.createUser(userEmployee, Role.EMPLOYEE);
 
-        UserDTO userAdmin = new UserDTO(new FirstName("Admin"), new LastName("Ad"), new Email("admin@example.com"), new Password("Lorem5ipsum@+"));
+        UserDTO userAdmin = new UserDTO(new FirstName("Admin"), new LastName("Ad"), new Email("admin@example.com"), "Lorem5ipsum@+");
         userService.createUser(userAdmin, Role.ADMIN);
     }
 

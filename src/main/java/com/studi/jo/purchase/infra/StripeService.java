@@ -1,4 +1,4 @@
-package com.studi.jo.purchase.service;
+package com.studi.jo.purchase.infra;
 
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;

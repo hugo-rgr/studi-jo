@@ -8,8 +8,8 @@ import com.studi.jo.offer.infra.OfferService;
 import com.studi.jo.purchase.domain.Purchase;
 import com.studi.jo.purchase.domain.PurchaseDTO;
 import com.studi.jo.purchase.domain.PurchaseKey;
-import com.studi.jo.purchase.service.PurchaseService;
-import com.studi.jo.purchase.service.StripeService;
+import com.studi.jo.purchase.infra.PurchaseService;
+import com.studi.jo.purchase.infra.StripeService;
 import com.studi.jo.ticket.domain.TicketDTO;
 import com.studi.jo.ticket.infra.TicketService;
 import com.studi.jo.user.domain.User;
@@ -42,11 +42,6 @@ public class PurchaseController {
 
     @Autowired
     private OfferService offerService;
-
-    @PostMapping("/create")
-    public Purchase createPurchase(@RequestBody PurchaseDTO purchaseDTO) {
-        return purchaseService.createPurchase(purchaseDTO);
-    }
 
     @PostMapping("/charge")
     public Map<String, Object> chargeCard(@RequestBody Map<String, Object> request) throws StripeException {

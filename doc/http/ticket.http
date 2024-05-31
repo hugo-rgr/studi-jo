@@ -1,12 +1,3 @@
-### Create Ticket
-POST http://localhost:8080/api/ticket/create
-Content-Type: application/json
-
-{
-  "offerName": "offre speciale",
-  "purchaseKey": "ppp"
-}
-
 ### Generate a Ticket PDF
-GET http://localhost:8080/api/ticket/export/pdf?id=4
+GET http://localhost:8080/api/ticket/export/pdf?id=1&id=2
 Content-Type: application/json

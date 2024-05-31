@@ -24,7 +24,7 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "purchase_date", nullable = false, unique = true)
+    @Column(name = "purchase_date", nullable = false)
     LocalDateTime dateOfPurchase;
 
     @Embedded

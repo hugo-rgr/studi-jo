@@ -1,8 +1,7 @@
-package com.studi.jo.purchase.service;
+package com.studi.jo.purchase.infra;
 
 import com.studi.jo.purchase.domain.Purchase;
 import com.studi.jo.purchase.domain.PurchaseDTO;
-import com.studi.jo.purchase.domain.Purchase;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;

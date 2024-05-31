@@ -18,11 +18,6 @@ public class TicketController {
     @Autowired
     private TicketService ticketService;
 
-    @PostMapping("/create")
-    public Ticket createTicket(@RequestBody TicketDTO ticketDTO) {
-        return ticketService.createTicket(ticketDTO);
-    }
-
     @GetMapping(value = "/export/pdf", produces = "application/pdf")
     public byte[] getTicketsPDF(@RequestParam List<Long> id) throws Exception {
         // Retrieve the first ticket if the right tickets are associated with the right user (for security)

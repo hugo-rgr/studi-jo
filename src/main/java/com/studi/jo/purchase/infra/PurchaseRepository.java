@@ -1,4 +1,4 @@
-package com.studi.jo.purchase.service;
+package com.studi.jo.purchase.infra;
 
 import com.studi.jo.purchase.domain.Purchase;
 import org.springframework.data.jpa.repository.JpaRepository;
