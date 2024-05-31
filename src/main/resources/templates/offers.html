@@ -94,7 +94,7 @@
 
                 let quantity = parseInt(quantitySpan.textContent);
 
-                if (action === 'increase') {
+                if (action === 'increase' && quantity < 10) { //limit the number of tickets of one type we can buy simultanenously to 10
                     quantity++;
                     updateTotal(id, action);
                 } else if (action === 'decrease' && quantity > 0) {
