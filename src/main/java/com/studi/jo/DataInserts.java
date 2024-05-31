@@ -62,6 +62,9 @@ public class DataInserts implements CommandLineRunner {
         purchaseSolo1L.add(1L);
         purchaseSolo1L.add(2L);
         BigDecimal totalPrice = offerService.getOfferById(1L).getPrice().getValue().add(offerService.getOfferById(2L).getPrice().getValue());
+        offerService.updateOfferIncrementSales(new OfferName("Offre solo"), 1);
+        offerService.updateOfferIncrementSales(new OfferName("Offre duo"), 1);
+
         PurchaseDTO purchaseSolo1 = new PurchaseDTO(purchaseSolo1L, new Price(totalPrice));
         purchaseService.createPurchase(purchaseSolo1);
     }
