@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="~{fragments::commonHead}">
-    <title>Réservation E-Ticket - Jeux Olympiques France</title>
+    <title>Réservation E-Billet - Jeux Olympiques de France 2024</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
-<body class="bg-light">
+<body class="d-flex flex-column min-vh-100 bg-light">
 
 <div th:insert="~{fragments::navbar}"></div>
 
@@ -16,12 +16,12 @@
 </div>
 
 <!-- Offers Section -->
-<section id="offers" class="py-5">
+<section id="offers" class="py-5 flex-grow-1">
     <div class="container">
         <h2 class="text-center font-weight-bold">Offres de Billets</h2>
         <p class="text-muted text-center">Choisissez votre offre :</p>
-        <div class="row" id="offersContainer">
-            <!-- Dynamic offer cards will be inserted here -->
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="offersContainer">
+            <!-- Dynamic offer cards from javascript -->
         </div>
         <div class="text-center mt-4">
             <h4>Total: <span id="totalPrice">0.00€</span></h4>
@@ -50,21 +50,15 @@
     var totalPrice = 0;
 
     document.addEventListener('DOMContentLoaded', function() {
-        if (sessionStorage.getItem('offers')) {
-            offersWithQuantity = JSON.parse(sessionStorage.getItem('offers'));
-            offersWithQuantity.forEach(offer => { // do not store totalPrice into session storage to prevent manipulation of it
-                totalPrice += offer.quantity * offer.price;
-            });
-            document.getElementById('totalPrice').textContent = `${totalPrice.toFixed(2)}€`;
-        } else {
-            offersWithQuantity = offers.map(offer => ({
-                id: offer.id,
-                name: offer.name,
-                price: offer.price,
-                quantity: 0
-            }));
-            sessionStorage.setItem('offers', JSON.stringify(offersWithQuantity));
-        }
+        sessionStorage.removeItem('offers');
+        offersWithQuantity = offers.map(offer => ({
+            id: offer.id,
+            name: offer.name,
+            price: offer.price,
+            description: offer.description || '',
+            quantity: 0
+        }));
+        sessionStorage.setItem('offers', JSON.stringify(offersWithQuantity));
 
         const offersContainer = document.getElementById('offersContainer');
 
@@ -75,7 +69,8 @@
         <div class="card h-100 shadow-sm">
           <div class="card-body">
             <h5 class="card-title">${offer.name}</h5>
-            <p class="card-text" id="price${index}">Price: ${parseFloat(offer.price).toFixed(2)}€</p>
+            <p class="card-text">${offer.description}</p>
+            <p class="card-text" id="price${index}">Prix : ${parseFloat(offer.price).toFixed(2)}€</p>
             <div class="d-flex justify-content-center align-items-center mb-3 quantity-selectors">
               <button class="btn btn-outline-secondary change-quantity rounded-circle" data-id="${index}" data-action="decrease">-</button>
               <span class="text-center quantity" id="quantity${index}" style="min-width: 60px;">${offer.quantity}</span>
@@ -117,7 +112,7 @@
 
     function updateTotal(id, action) {
         const priceText = document.getElementById(`price${id}`).textContent;
-        const price = parseFloat(priceText.replace('Price: ', '').replace('€',''));
+        const price = parseFloat(priceText.replace('Prix : ', '').replace('€',''));
 
         if (action === 'increase') {
             totalPrice += price;

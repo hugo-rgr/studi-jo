@@ -45,4 +45,9 @@ public class Price {
     public void setValue(BigDecimal value){
         this.value = forceFloorRounding(value);
     }
+
+    @JsonCreator
+    public static Price fromValue(BigDecimal value){
+        return new Price(value);
+    }
 }
