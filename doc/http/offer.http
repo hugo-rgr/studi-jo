@@ -1,11 +1,14 @@
 ### List offers
 GET http://localhost:8080/api/offer
+Authorization: Basic admin@example.com Lorem5ipsum@+
 
 ### Get one Offer
 GET http://localhost:8080/api/offer/1
+Authorization: Basic admin@example.com Lorem5ipsum@+
 
 ### Create Offer
 POST http://localhost:8080/api/offer
+Authorization: Basic admin@example.com Lorem5ipsum@+
 Content-Type: application/json
 
 {
@@ -16,6 +19,7 @@ Content-Type: application/json
 
 ### Update Offer
 PUT http://localhost:8080/api/offer/1
+Authorization: Basic admin@example.com Lorem5ipsum@+
 Content-Type: application/json
 
 {
@@ -26,3 +30,4 @@ Content-Type: application/json
 
 ### Delete Offer
 DELETE http://localhost:8080/api/offer/1
+Authorization: Basic admin@example.com Lorem5ipsum@+
