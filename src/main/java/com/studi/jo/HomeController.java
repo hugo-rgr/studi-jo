@@ -4,10 +4,14 @@ import com.studi.jo.offer.domain.Offer;
 import com.studi.jo.offer.infra.OfferService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @SpringBootApplication
@@ -30,8 +34,15 @@ public class HomeController {
     }
 
     @GetMapping("/login")
-    public String login(){
-        return "login";
+    public ModelAndView login(HttpServletRequest req, HttpSession session) {
+        ModelAndView mav = new ModelAndView("login");
+        if (session != null) {
+            SavedRequest savedRequest = (SavedRequest) session.getAttribute("SPRING_SECURITY_SAVED_REQUEST");
+            if (savedRequest != null) {
+                mav.addObject("redirectUrl", savedRequest.getRedirectUrl());
+            }
+        }
+        return mav;
     }
 
     @GetMapping("/offers")
