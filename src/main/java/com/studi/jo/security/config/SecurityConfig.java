@@ -4,6 +4,7 @@ import com.studi.jo.user.infra.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -31,9 +32,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/login", "api/user/create", "/offers", "api/offers/**", "/checkout").permitAll()
-                .antMatchers("/admin").hasAuthority("ADMIN")
-                .anyRequest().permitAll() //TODO: fix
+                .antMatchers("/", "api/user/create", "/offers").permitAll()
+                .antMatchers("/checkout", "/checkout/validated", "/api/ticket/export/pdf", "/api/purchase/charge").hasAnyRole("CLIENT", "ADMIN")
+                .antMatchers("/admin/**", "/api/offers/**").hasRole("ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -45,6 +46,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .permitAll()
                 .logoutSuccessUrl("/");
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 }
 

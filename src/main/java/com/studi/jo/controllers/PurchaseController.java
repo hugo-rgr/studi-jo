@@ -16,6 +16,7 @@ import com.studi.jo.user.domain.User;
 import com.studi.jo.user.domain.UserKey;
 import com.studi.jo.user.infra.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,9 +67,7 @@ public class PurchaseController {
             return response;
         }
 
-        //UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        //String email = userDetails.getUsername();
-        User currentUser = userService.getUserByEmail("admin@example.com");
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserKey userKey = currentUser.getUserKey();
         PurchaseKey purchaseKey = new PurchaseKey();
 

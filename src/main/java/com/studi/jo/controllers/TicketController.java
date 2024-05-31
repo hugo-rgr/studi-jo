@@ -21,13 +21,13 @@ public class TicketController {
     @GetMapping(value = "/export/pdf", produces = "application/pdf")
     public byte[] getTicketsPDF(@RequestParam List<Long> id) throws Exception {
         // Retrieve the first ticket if the right tickets are associated with the right user (for security)
-        //User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        //UserKey userKey = currentUser.getUserKey();
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserKey userKey = currentUser.getUserKey();
 
         Ticket firstTicket = ticketService.getTicketById(id.get(0));
-        //if (!firstTicket.getUserKey().equals(userKey)) {
-        //    throw new IllegalArgumentException("User key does not match. Unauthorized to generate PDF for these tickets.");
-        //}
+        if (!firstTicket.getUserKey().equals(userKey)) {
+            throw new IllegalArgumentException("User key does not match. Unauthorized to generate PDF for these tickets.");
+        }
 
         return ticketService.generateTicketsPDF(id);
     }
