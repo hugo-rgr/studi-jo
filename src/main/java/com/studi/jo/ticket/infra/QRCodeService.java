@@ -24,16 +24,6 @@ public class QRCodeService {
         return pngOutputStream.toByteArray();
     }
 
-    public byte[] generateQRCodeImage(String userKey, String purchaseKey) throws Exception {
-        String combinedKeys = userKey + purchaseKey;
-        QRCodeWriter qrCodeWriter = new QRCodeWriter();
-        BitMatrix bitMatrix = qrCodeWriter.encode(combinedKeys, BarcodeFormat.QR_CODE, QR_CODE_WIDTH, QR_CODE_HEIGHT);
-
-        ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
-        MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream);
-        return pngOutputStream.toByteArray();
-    }
-
     private String combineKeys(long ticketId, String userKey, String purchaseKey) {
         return ticketId + userKey + purchaseKey;
     }

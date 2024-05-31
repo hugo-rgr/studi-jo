@@ -53,7 +53,7 @@ public class TicketService {
         return null;
     }
 
-    public void updateTicketValidityStatus(Long id, TicketValidityStatus currentTicketValidityStatus){
+    public void updateTicketValidityStatus(Long id, TicketValidityStatus currentTicketValidityStatus){ //unused (theorically should be useful for employees if ticket checking is implemented)
         if (currentTicketValidityStatus == TicketValidityStatus.VALID) {
             LocalDateTime currentDate = LocalDateTime.now();
             Ticket currentTicket = this.getTicketById(id);
