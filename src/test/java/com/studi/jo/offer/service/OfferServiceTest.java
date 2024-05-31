@@ -22,7 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
-public class OfferServiceIntegrationTest {
+public class OfferServiceTest {
 
     @Mock
     private OfferRepository offerRepository;

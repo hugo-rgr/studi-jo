@@ -17,7 +17,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
-public class UserServiceIntegrationTest {
+public class UserServiceTest {
 
     @Mock
     private UserRepository userRepository;
