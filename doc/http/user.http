@@ -1,4 +1,5 @@
 ### Create User
+# @no-cookie-jar
 POST http://localhost:8080/api/user/create
 Content-Type: application/json
 

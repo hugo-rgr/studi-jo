@@ -8,54 +8,67 @@
 
 <div class="container mt-5 flex-grow-1">
   <div class="row justify-content-center">
-    <!-- Login -->
     <div class="col-md-6">
       <div class="card shadow mb-5">
         <div class="card-body">
-          <h3 class="card-title text-center">Connexion</h3>
-          <form th:action="@{/login}" method="post">
-            <div class="mb-3">
-              <label for="username" class="form-label">Email</label>
-              <input type="email" class="form-control" id="username" name="username" required>
+          <ul class="nav nav-tabs" id="authTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab" aria-controls="login" aria-selected="true">Connexion</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button" role="tab" aria-controls="register" aria-selected="false">Inscription</button>
+            </li>
+          </ul>
+          <div class="tab-content" id="authTabContent">
+            <!-- Login Form -->
+            <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+              <h3 class="card-title text-center">Connexion</h3>
+              <div th:if="${param.error}">
+                <div class="alert alert-danger" role="alert">
+                  Nom d'utilisateur ou mot de passe incorrect.
+                </div>
+              </div>
+              <form th:action="@{/login}" method="post">
+                <div class="mb-3">
+                  <label for="username" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="username" name="username" required>
+                </div>
+                <div class="mb-3">
+                  <label for="password" class="form-label">Mot de passe</label>
+                  <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-primary">Se connecter</button>
+                </div>
+              </form>
             </div>
-            <div class="mb-3">
-              <label for="password" class="form-label">Mot de passe</label>
-              <input type="password" class="form-control" id="password" name="password" required>
-            </div>
-            <div class="d-grid gap-2">
-              <button type="submit" class="btn btn-primary">Se connecter</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
 
-    <!-- Register -->
-    <div class="col-md-6">
-      <div class="card shadow">
-        <div class="card-body">
-          <h3 class="card-title text-center">Inscription</h3>
-          <form th:action="@{/api/user/register}" method="post">
-            <div class="mb-3">
-              <label for="register_firstname" class="form-label">Prénom</label>
-              <input type="text" class="form-control" id="register_firstname" name="firstName" required>
+            <!-- Registration Form -->
+            <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+              <h3 class="card-title text-center">Inscription</h3>
+              <form id="registerForm">
+                <div class="mb-3">
+                  <label for="new_firstName" class="form-label">Prénom</label>
+                  <input type="text" class="form-control" id="new_firstName" name="firstName" required>
+                </div>
+                <div class="mb-3">
+                  <label for="new_lastName" class="form-label">Nom</label>
+                  <input type="text" class="form-control" id="new_lastName" name="lastName" required>
+                </div>
+                <div class="mb-3">
+                  <label for="new_email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="new_email" name="email" required>
+                </div>
+                <div class="mb-3">
+                  <label for="new_password" class="form-label">Mot de passe</label>
+                  <input type="password" class="form-control" id="new_password" name="password" required>
+                </div>
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-primary">S'inscrire</button>
+                </div>
+              </form>
             </div>
-            <div class="mb-3">
-              <label for="register_lastname" class="form-label">Nom de famille</label>
-              <input type="text" class="form-control" id="register_lastname" name="lastName" required>
-            </div>
-            <div class="mb-3">
-              <label for="register_email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="register_email" name="email" required>
-            </div>
-            <div class="mb-3">
-              <label for="register_password" class="form-label">Mot de passe</label>
-              <input type="password" class="form-control" id="register_password" name="password" required>
-            </div>
-            <div class="d-grid gap-2">
-              <button type="submit" class="btn btn-success">S'inscrire</button>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
@@ -64,5 +77,61 @@
 
 <div th:insert="~{fragments::footer}"></div>
 <div th:insert="~{fragments::commonJsImports}"></div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var myTab = new bootstrap.Tab(document.querySelector('#authTab .nav-link.active'))
+    myTab.show()
+
+    document.getElementById('registerForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      var form = event.target;
+
+      var formData = {
+        first_name: form.firstName.value,
+        last_name: form.lastName.value,
+        email: form.email.value,
+        password: form.password.value
+      };
+
+      fetch('/api/user/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
+              .then(response => {
+                if (response.ok) {
+                  return response.json();
+                }
+                return response.text().then(text => { throw new Error(text) });
+              })
+              .then(data => {
+                console.log('Success for registration:', data);
+                return fetch('/login', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                  },
+                  body: new URLSearchParams({
+                    username: formData.email,
+                    password: formData.password
+                  })
+                });
+              })
+              .then(response => {
+                if (response.ok) {
+                  window.location.assign(document.referrer);
+                } else {
+                  return response.text().then(text => { throw new Error(text) });
+                }
+              })
+              .catch(error => {
+                console.error('Error:', error);
+                alert('Erreur lors de l\'inscription. Veuillez réessayer.');
+              });
+    });
+  });
+</script>
 </body>
 </html>

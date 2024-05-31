@@ -14,7 +14,6 @@ import com.studi.jo.ticket.domain.TicketDTO;
 import com.studi.jo.ticket.infra.TicketService;
 import com.studi.jo.user.domain.User;
 import com.studi.jo.user.domain.UserKey;
-import com.studi.jo.user.infra.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,9 +36,6 @@ public class PurchaseController {
 
     @Autowired
     private TicketService ticketService;
-
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private OfferService offerService;
