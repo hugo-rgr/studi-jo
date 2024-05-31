@@ -90,7 +90,7 @@ public class PurchaseController {
             });
             List<Long> ticketIds = ticketService.createTickets(ticketDTOs);
 
-            Purchase purchase = purchaseService.createPurchase(new PurchaseDTO(ticketIds, new Price(BigDecimal.valueOf(amount))));
+            purchaseService.createPurchase(new PurchaseDTO(ticketIds, new Price(BigDecimal.valueOf(amount))));
 
             response.put("ticketIds", ticketIds);
             logger.info("Purchase created successfully with ticket IDs: {}", ticketIds);

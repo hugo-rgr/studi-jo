@@ -24,7 +24,7 @@ public class QRCodeService {
         return pngOutputStream.toByteArray();
     }
 
-    private String combineKeys(long ticketId, String userKey, String purchaseKey) {
+    String combineKeys(long ticketId, String userKey, String purchaseKey) {
         return ticketId + userKey + purchaseKey;
     }
 }
