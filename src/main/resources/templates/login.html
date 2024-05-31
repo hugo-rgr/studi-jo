@@ -28,6 +28,11 @@
                   Nom d'utilisateur ou mot de passe incorrect.
                 </div>
               </div>
+              <div th:if="${param.expired}">
+                <div class="alert alert-warning" role="alert">
+                  Votre session précédente a été fermée, car vous vous êtes connecté depuis un autre emplacement.
+                </div>
+              </div>
               <form th:action="@{/login}" method="post">
                 <div class="mb-3">
                   <label for="username" class="form-label">Email</label>

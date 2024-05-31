@@ -45,7 +45,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll()
-                .logoutSuccessUrl("/");
+                .logoutSuccessUrl("/")
+                .and()
+                .sessionManagement()
+                .maximumSessions(1) // one user can have one session at the same time
+                .expiredUrl("/login?expired=true")
+                .maxSessionsPreventsLogin(false);
     }
 
     @Bean
