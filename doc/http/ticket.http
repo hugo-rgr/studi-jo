@@ -1,3 +1,4 @@
 ### Generate a Ticket PDF
 GET http://localhost:8080/api/ticket/export/pdf?id=1&id=2
+Authorization: Basic client@example.com Lorem5ipsum@+
 Content-Type: application/json

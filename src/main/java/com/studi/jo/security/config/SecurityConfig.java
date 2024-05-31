@@ -1,6 +1,6 @@
 package com.studi.jo.security.config;
 
-import com.studi.jo.user.infra.UserService;
+import com.studi.jo.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,7 +34,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "api/user/create", "/offers").permitAll()
                 .antMatchers("/checkout", "/checkout/validated", "/api/ticket/export/pdf", "/api/purchase/charge").hasAnyRole("CLIENT", "ADMIN")
-                .antMatchers("/admin/**", "/api/offers/**").hasRole("ADMIN")
+                .antMatchers("/admin/**", "/api/offer/**").hasRole("ADMIN")
+                .and()
+                .httpBasic()
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -45,7 +47,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll()
-                .logoutSuccessUrl("/");
+                .logoutSuccessUrl("/")
+                .and()
+                .sessionManagement()
+                .maximumSessions(1) // one user can have one session at the same time
+                .expiredUrl("/login?expired=true")
+                .maxSessionsPreventsLogin(false);
     }
 
     @Bean

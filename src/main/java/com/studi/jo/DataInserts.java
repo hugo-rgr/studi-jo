@@ -4,13 +4,13 @@ import com.studi.jo.common.domain.Price;
 import com.studi.jo.offer.domain.OfferDTO;
 import com.studi.jo.offer.domain.OfferDescription;
 import com.studi.jo.offer.domain.OfferName;
-import com.studi.jo.offer.infra.OfferService;
+import com.studi.jo.offer.service.OfferService;
 import com.studi.jo.purchase.domain.PurchaseDTO;
-import com.studi.jo.purchase.infra.PurchaseService;
+import com.studi.jo.purchase.service.PurchaseService;
 import com.studi.jo.ticket.domain.TicketDTO;
-import com.studi.jo.ticket.infra.TicketService;
+import com.studi.jo.ticket.service.TicketService;
 import com.studi.jo.user.domain.*;
-import com.studi.jo.user.infra.UserService;
+import com.studi.jo.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -62,6 +62,9 @@ public class DataInserts implements CommandLineRunner {
         purchaseSolo1L.add(1L);
         purchaseSolo1L.add(2L);
         BigDecimal totalPrice = offerService.getOfferById(1L).getPrice().getValue().add(offerService.getOfferById(2L).getPrice().getValue());
+        offerService.updateOfferIncrementSales(new OfferName("Offre solo"), 1);
+        offerService.updateOfferIncrementSales(new OfferName("Offre duo"), 1);
+
         PurchaseDTO purchaseSolo1 = new PurchaseDTO(purchaseSolo1L, new Price(totalPrice));
         purchaseService.createPurchase(purchaseSolo1);
     }

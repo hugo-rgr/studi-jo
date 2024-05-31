@@ -1,9 +1,8 @@
-package com.studi.jo.user.infra;
+package com.studi.jo.user.service;
 
 import com.studi.jo.user.domain.User;
 import com.studi.jo.user.domain.Email;
 import com.studi.jo.user.domain.Role;
-import com.studi.jo.user.domain.User;
 import com.studi.jo.user.domain.UserDTO;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

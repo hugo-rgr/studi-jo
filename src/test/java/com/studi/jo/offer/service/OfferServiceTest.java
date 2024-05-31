@@ -1,4 +1,4 @@
-package com.studi.jo.offer.infra;
+package com.studi.jo.offer.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -22,7 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
-public class OfferServiceIntegrationTest {
+public class OfferServiceTest {
 
     @Mock
     private OfferRepository offerRepository;

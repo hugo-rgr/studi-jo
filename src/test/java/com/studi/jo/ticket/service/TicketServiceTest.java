@@ -1,4 +1,4 @@
-package com.studi.jo.ticket.infra;
+package com.studi.jo.ticket.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @ExtendWith(MockitoExtension.class)
-public class TicketServiceIntegrationTest {
+public class TicketServiceTest {
 
     @Mock
     private TicketRepository ticketRepository;

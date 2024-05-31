@@ -2,7 +2,7 @@ package com.studi.jo.controllers;
 
 import com.studi.jo.offer.domain.Offer;
 import com.studi.jo.offer.domain.OfferDTO;
-import com.studi.jo.offer.infra.OfferService;
+import com.studi.jo.offer.service.OfferService;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import org.slf4j.Logger;
@@ -14,7 +14,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/offer")

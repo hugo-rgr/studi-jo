@@ -1,4 +1,4 @@
-package com.studi.jo.ticket.infra;
+package com.studi.jo.ticket.service;
 
 import com.studi.jo.ticket.domain.Ticket;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -32,7 +32,7 @@ public class TicketPDFService {
             contentStream.newLineAtOffset(100, 700);
             contentStream.showText(ticket.getOfferName());
             contentStream.newLineAtOffset(0, -20);
-            contentStream.showText("Votre e-ticket pour les Jeux Olympiques de Paris 2024");
+            contentStream.showText("Votre e-billet pour les Jeux Olympiques de Paris 2024");
             contentStream.endText();
 
             PDImageXObject pdImage = PDImageXObject.createFromByteArray(document, qrCode, "QR Code");

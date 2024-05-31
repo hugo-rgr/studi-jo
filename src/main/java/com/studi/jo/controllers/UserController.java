@@ -3,7 +3,7 @@ package com.studi.jo.controllers;
 import com.studi.jo.user.domain.User;
 import com.studi.jo.user.domain.Role;
 import com.studi.jo.user.domain.UserDTO;
-import com.studi.jo.user.infra.UserService;
+import com.studi.jo.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

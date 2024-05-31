@@ -1,4 +1,4 @@
-package com.studi.jo.user.infra;
+package com.studi.jo.user.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -17,7 +17,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
-public class UserServiceIntegrationTest {
+public class UserServiceTest {
 
     @Mock
     private UserRepository userRepository;
@@ -40,7 +40,7 @@ public class UserServiceIntegrationTest {
     }
 
     @Test
-    public void testGetUserById_UserExists() {
+    public void testGetUserByIdUserExists() {
         User user = new User(1L, new FirstName("John"), new LastName("Doe"), new Email("john.doe@example.com"), new Password("ValidPass1!"), new UserKey(), Role.CLIENT);
         when(userRepository.findById(any(Long.class))).thenReturn(Optional.of(user));
 
@@ -50,7 +50,7 @@ public class UserServiceIntegrationTest {
     }
 
     @Test
-    public void testGetUserById_UserDoesNotExist() {
+    public void testGetUserByIdUserDoesNotExist() {
         when(userRepository.findById(any(Long.class))).thenReturn(Optional.empty());
 
         EntityNotFoundException thrown = assertThrows(EntityNotFoundException.class, () -> {
@@ -61,7 +61,7 @@ public class UserServiceIntegrationTest {
     }
 
     @Test
-    public void testGetUserByEmail_UserExists() {
+    public void testGetUserByEmailUserExists() {
         User user = new User(1L, new FirstName("John"), new LastName("Doe"), new Email("john.doe@example.com"), new Password("ValidPass1!"), new UserKey(), Role.CLIENT);
         when(userRepository.findByEmail(any(Email.class))).thenReturn(Optional.of(user));
 
@@ -70,7 +70,7 @@ public class UserServiceIntegrationTest {
     }
 
     @Test
-    public void testGetUserByEmail_UserDoesNotExist() {
+    public void testGetUserByEmailUserDoesNotExist() {
         when(userRepository.findByEmail(any(Email.class))).thenReturn(Optional.empty());
 
         UsernameNotFoundException thrown = assertThrows(UsernameNotFoundException.class, () -> {
@@ -81,7 +81,7 @@ public class UserServiceIntegrationTest {
     }
 
     @Test
-    public void testLoadUserByUsername_UserExists() {
+    public void testLoadUserByUsernameUserExists() {
         User user = new User(1L, new FirstName("John"), new LastName("Doe"), new Email("john.doe@example.com"), new Password("ValidPass1!"), new UserKey(), Role.CLIENT);
         when(userRepository.findByEmail(any(Email.class))).thenReturn(Optional.of(user));
 
@@ -90,7 +90,7 @@ public class UserServiceIntegrationTest {
     }
 
     @Test
-    public void testLoadUserByUsername_UserDoesNotExist() {
+    public void testLoadUserByUsernameUserDoesNotExist() {
         when(userRepository.findByEmail(any(Email.class))).thenReturn(Optional.empty());
 
         UsernameNotFoundException thrown = assertThrows(UsernameNotFoundException.class, () -> {

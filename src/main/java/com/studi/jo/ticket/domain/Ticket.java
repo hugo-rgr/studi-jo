@@ -1,6 +1,5 @@
 package com.studi.jo.ticket.domain;
 
-import com.studi.jo.offer.domain.OfferName;
 import com.studi.jo.purchase.domain.PurchaseKey;
 import com.studi.jo.user.domain.UserKey;
 import lombok.*;
@@ -8,7 +7,6 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 
 // Billets
 @Entity

@@ -31,6 +31,12 @@
           <li class="nav-item">
             <a class="nav-link" th:href="@{/offers}">Offres</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               th:href="${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? '/admin/dashboard' : ''}"
+               th:text="${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? 'Admin' : ''}">
+            </a>
+          </li>
         </ul>
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">

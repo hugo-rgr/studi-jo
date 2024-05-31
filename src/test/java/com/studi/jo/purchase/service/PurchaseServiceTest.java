@@ -1,4 +1,4 @@
-package com.studi.jo.purchase.infra;
+package com.studi.jo.purchase.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -21,7 +21,7 @@ import java.util.Optional;
 import java.util.Arrays;
 
 @ExtendWith(MockitoExtension.class)
-public class PurchaseServiceIntegrationTest {
+public class PurchaseServiceTest {
 
     @Mock
     private PurchaseRepository purchaseRepository;

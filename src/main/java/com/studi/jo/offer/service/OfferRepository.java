@@ -1,4 +1,4 @@
-package com.studi.jo.offer.infra;
+package com.studi.jo.offer.service;
 
 import com.studi.jo.offer.domain.Offer;
 import com.studi.jo.offer.domain.OfferName;
