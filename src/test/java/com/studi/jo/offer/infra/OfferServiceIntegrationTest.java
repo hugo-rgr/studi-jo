@@ -73,7 +73,7 @@ public class OfferServiceIntegrationTest {
         when(offerRepository.findById(any(Long.class))).thenReturn(Optional.of(offer));
         when(offerRepository.save(any(Offer.class))).thenReturn(offer);
 
-        Offer updatedOffer = offerService.updateOfferIncrementSales(1L, 3);
+        Offer updatedOffer = offerService.updateOfferIncrementSales(offerDTO.getName(), 3);
 
         assertEquals(8, updatedOffer.getSalesNumber());
     }

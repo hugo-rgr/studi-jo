@@ -6,3 +6,24 @@ Content-Type: application/json
   "listOffers": [1,2,1],
   "totalPrice": "15.0"
 }
+
+### Charge
+POST http://localhost:8080/api/purchase/charge
+Content-Type: application/json
+
+{
+    "amount": 5.00,
+    "offers": [
+        {
+            "id": 1,
+            "name": "Offre solo",
+            "quantity": 2
+        },
+        {
+            "id": 2,
+            "name": "Offre duo",
+            "quantity": 1
+        }
+    ]
+}
+

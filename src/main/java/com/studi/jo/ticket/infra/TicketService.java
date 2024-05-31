@@ -10,15 +10,20 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TicketService {
 
-    private TicketRepository ticketRepository;
+    private final TicketRepository ticketRepository;
 
-    public TicketService(TicketRepository ticketRepository){
+    private final TicketPDFService ticketPDFService;
+
+    public TicketService(TicketRepository ticketRepository, TicketPDFService ticketPDFService){
         this.ticketRepository = ticketRepository;
+        this.ticketPDFService = ticketPDFService;
     }
 
     protected Ticket saveTicket(Ticket ticket) {
@@ -27,6 +32,25 @@ public class TicketService {
 
     public Ticket createTicket(TicketDTO ticketDTO) {
         return saveTicket(ticketDTO.toTicket());
+    }
+
+    @Transactional
+    public List<Long> createTickets(List<TicketDTO> ticketDTOs) {
+        List<Ticket> tickets = ticketDTOs.stream()
+                .map(TicketDTO::toTicket)
+                .collect(Collectors.toList());
+        List<Ticket> savedTickets = ticketRepository.saveAll(tickets);
+        return savedTickets.stream()
+                .map(Ticket::getId)
+                .collect(Collectors.toList());
+    }
+
+    public byte[] generateTicketsPDF(List<Long> listIds) throws Exception {
+        List<Ticket> tickets = ticketRepository.findAllById(listIds);
+        if (!tickets.isEmpty()) {
+            return ticketPDFService.createTicketsPDF(tickets);
+        }
+        return null;
     }
 
     public void updateTicketValidityStatus(Long id, TicketValidityStatus currentTicketValidityStatus, TicketValidityStatus action){
@@ -43,7 +67,7 @@ public class TicketService {
         }
     }
 
-    protected Ticket getTicketById(Long id) {
+    public Ticket getTicketById(Long id) {
         Optional<Ticket> ticket = ticketRepository.findById(id);
         if (!ticket.isPresent()) {
             throw new EntityNotFoundException("ERROR: Offer with id " + id + " not found.");

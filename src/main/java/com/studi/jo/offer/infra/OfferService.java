@@ -2,6 +2,7 @@ package com.studi.jo.offer.infra;
 
 import com.studi.jo.offer.domain.Offer;
 import com.studi.jo.offer.domain.OfferDTO;
+import com.studi.jo.offer.domain.OfferName;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -32,11 +33,19 @@ public class OfferService {
         return offerRepository.save(existingOffer);
     }
 
-    public Offer updateOfferIncrementSales(Long id, int increment) {
-        Offer existingOffer = this.getOfferById(id);
+    public Offer updateOfferIncrementSales(OfferName name, int increment) {
+        Offer existingOffer = this.getOfferByName(name);
         int currentSalesNumber = existingOffer.getSalesNumber();
         existingOffer.setSalesNumber(currentSalesNumber + increment);
         return offerRepository.save(existingOffer);
+    }
+
+    public Offer getOfferByName(OfferName name) {
+        Optional<Offer> offer = offerRepository.findByName(name);
+        if (!offer.isPresent()) {
+            throw new EntityNotFoundException("ERROR: Offer with name " + name.getValue() + " not found.");
+        }
+        return offer.get();
     }
     
     public Offer getOfferById(Long id) {

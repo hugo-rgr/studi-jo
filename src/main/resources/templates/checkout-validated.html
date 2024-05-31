@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments::commonHead}">
+    <title>Confirmation de l'achat des billets</title>
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+<div th:insert="~{fragments::navbar}"></div>
+
+<div class="container my-5 flex-grow-1">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h2 class="card-title">Achat confirmé!</h2>
+                    <p class="card-text">Merci pour votre achat. Vous pouvez télécharger vos billets ci-dessous.</p>
+                    <button id="downloadPdfButton" type="button" class="btn btn-primary">Télécharger le(s) billet(s)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:insert="~{fragments::footer}"></div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    sessionStorage.removeItem('offers'); // not using session storage here to prevent data manipulation before generating pdf files
+
+    $(document).ready(function() {
+        $('#downloadPdfButton').click(function() {
+            var ticketIds = JSON.parse(sessionStorage.getItem('ticketIds')) || [];
+            if (ticketIds.length === 0) {
+                alert("Pas de ticket trouvé.");
+                return;
+            }
+
+            var queryParams = ticketIds.map(id => `id=${id}`).join('&');
+            var url = `/api/ticket/export/pdf?${queryParams}`;
+
+            window.open(url, '_blank');
+        });
+    });
+
+    window.addEventListener('beforeunload', function() {
+        sessionStorage.removeItem('ticketIds');
+    });
+</script>
+</body>
+
+</html>

@@ -4,12 +4,12 @@
   <title>Paiement - Jeux Olympiques de France 2024</title>
   <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
-<body class="bg-light">
+<body class="d-flex flex-column min-vh-100 bg-light">
 
 <div th:insert="~{fragments::navbar}"></div>
 
 <!-- Cart -->
-<section class="py-5">
+<section class="py-5 flex-grow-1">
   <div class="container">
     <h1 class="text-center fw-bold mb-4">Votre Panier</h1>
     <div class="row justify-content-center">
@@ -40,6 +40,12 @@
     const totalPrice = calculateTotalPrice();
 
     document.getElementById('stripeCheckoutButton').addEventListener('click', function() {
+      const cartItems = JSON.parse(sessionStorage.getItem('offers')) || [];
+      const offersIds = cartItems.map(item => ({
+        id: item.id,
+        name: item.name,
+        quantity: item.quantity
+      }));
       doStripeCheckout(totalPrice);
     });
   });
@@ -66,17 +72,26 @@
     return totalPrice;
   }
 
-  async function doStripeCheckout(totalPrice) {
+  async function doStripeCheckout(totalPrice, offers) {
     try {
+      const cartItems = JSON.parse(sessionStorage.getItem('offers'));
+
+      const offers = cartItems.map(item => ({
+        name: item.name,
+        quantity: item.quantity
+      }));
+
       const response = await fetch('/api/purchase/charge', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ amount: totalPrice })
+        body: JSON.stringify({ amount: totalPrice, offers: offers })
       });
       const result = await response.json();
       if (result.status === 'succeeded') {
+        const ticketIds = result.ticketIds;
+        sessionStorage.setItem("ticketIds", JSON.stringify(ticketIds));
         window.location.href = '/checkout/validated';
       } else {
         alert('Paiement échoué: ' + result.status);

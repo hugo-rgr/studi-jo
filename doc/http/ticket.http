@@ -6,3 +6,7 @@ Content-Type: application/json
   "offerName": "offre speciale",
   "purchaseKey": "ppp"
 }
+
+### Generate a Ticket PDF
+GET http://localhost:8080/api/ticket/export/pdf?id=4
+Content-Type: application/json

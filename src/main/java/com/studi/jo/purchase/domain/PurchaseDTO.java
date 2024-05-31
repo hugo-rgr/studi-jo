@@ -8,7 +8,7 @@ import lombok.Value;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -33,7 +33,7 @@ public class PurchaseDTO {
     public Purchase toPurchase(){
         return new Purchase(
                 null,
-                OffsetDateTime.now(),
+                LocalDateTime.now(),
                 new PurchaseKey(),
                 this.listTicketIds,
                 this.totalPrice

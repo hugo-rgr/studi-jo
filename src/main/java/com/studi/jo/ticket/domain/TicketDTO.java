@@ -30,7 +30,7 @@ public class TicketDTO {
     @JsonCreator
     public TicketDTO(@JsonProperty("offerName") @Valid @NotNull OfferName offerName,
                      @JsonProperty("userKey") @Valid @NotNull UserKey userKey,
-                     @JsonProperty("purchaseKey") @Valid PurchaseKey purchaseKey) {
+                     @JsonProperty("purchaseKey") @Valid @NotNull PurchaseKey purchaseKey) {
         this.offerName = offerName;
         this.userKey = userKey;
         this.purchaseKey = purchaseKey;
@@ -39,7 +39,7 @@ public class TicketDTO {
     public Ticket toTicket() {
         return new Ticket(
                 null,
-                this.offerName,
+                this.offerName.getValue(),
                 this.userKey,
                 this.purchaseKey,
                 TicketValidityStatus.VALID

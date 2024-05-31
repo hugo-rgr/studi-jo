@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -40,6 +41,16 @@ public class HomeController {
         model.addAttribute("offers", offers);
         model.addAttribute("hasOffers", !offers.isEmpty());
         return "offers";
+    }
+
+    @GetMapping("/checkout")
+    public String checkout(){
+        return "checkout";
+    }
+
+    @GetMapping("/checkout/validated")
+    public String checkoutValidated(){
+        return "checkout-validated";
     }
 
 }

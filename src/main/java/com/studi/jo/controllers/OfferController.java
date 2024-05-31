@@ -77,21 +77,6 @@ public class OfferController {
         }
     }
 
-    @PutMapping("/{id}/sales/increment")
-    public ResponseEntity<?> updateOfferSales(@PathVariable Long id, @RequestParam int salesNumberToIncrement) {
-        logger.info("Incrementing sales number for offer with id: {}", id);
-        try {
-            Offer updatedOffer = offerService.updateOfferIncrementSales(id, salesNumberToIncrement);
-            return ResponseEntity.ok(updatedOffer);
-        } catch (EntityNotFoundException e) {
-            logger.error("Error incrementing sales number for offer: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ERROR: " + e.getMessage());
-        } catch (Exception e) {
-            logger.error("Error incrementing sales number for offer: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("ERROR: Could not increment sales number. " + e.getMessage());
-        }
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteOffer(@PathVariable Long id) {
         logger.info("Deleting offer with id: {}", id);

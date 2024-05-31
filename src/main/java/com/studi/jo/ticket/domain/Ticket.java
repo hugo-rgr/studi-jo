@@ -7,6 +7,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 // Billets
@@ -25,8 +26,8 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Embedded
-    OfferName offerName;
+    @NotNull
+    String offerName;
 
     @Embedded
     UserKey userKey;

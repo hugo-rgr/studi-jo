@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 public class PurchaseService {
 
-    private PurchaseRepository purchaseRepository;
+    private final PurchaseRepository purchaseRepository;
 
     public PurchaseService(PurchaseRepository purchaseRepository){
         this.purchaseRepository = purchaseRepository;

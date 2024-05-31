@@ -5,7 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 // Achats
@@ -24,8 +24,8 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "purchase_date", nullable = false)
-    OffsetDateTime dateOfPurchase;
+    @Column(name = "purchase_date", nullable = false, unique = true)
+    LocalDateTime dateOfPurchase;
 
     @Embedded
     PurchaseKey purchaseKey;
