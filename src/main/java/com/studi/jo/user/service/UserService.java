@@ -1,4 +1,4 @@
-package com.studi.jo.user.infra;
+package com.studi.jo.user.service;
 
 import com.studi.jo.user.domain.User;
 import com.studi.jo.user.domain.Email;

@@ -1,7 +1,7 @@
 package com.studi.jo;
 
 import com.studi.jo.offer.domain.Offer;
-import com.studi.jo.offer.infra.OfferService;
+import com.studi.jo.offer.service.OfferService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.web.savedrequest.SavedRequest;

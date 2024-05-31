@@ -1,7 +1,7 @@
 package com.studi.jo.controllers;
 
 import com.studi.jo.ticket.domain.Ticket;
-import com.studi.jo.ticket.infra.TicketService;
+import com.studi.jo.ticket.service.TicketService;
 import com.studi.jo.user.domain.User;
 import com.studi.jo.user.domain.UserKey;
 import org.slf4j.Logger;

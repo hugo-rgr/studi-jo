@@ -1,4 +1,4 @@
-package com.studi.jo.purchase.infra;
+package com.studi.jo.purchase.service;
 
 import com.studi.jo.purchase.domain.Purchase;
 import com.studi.jo.purchase.domain.PurchaseDTO;

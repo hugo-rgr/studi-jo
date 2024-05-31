@@ -1,4 +1,4 @@
-package com.studi.jo.ticket.infra;
+package com.studi.jo.ticket.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 

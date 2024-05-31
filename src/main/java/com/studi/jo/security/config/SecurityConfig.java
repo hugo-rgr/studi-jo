@@ -1,6 +1,6 @@
 package com.studi.jo.security.config;
 
-import com.studi.jo.user.infra.UserService;
+import com.studi.jo.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

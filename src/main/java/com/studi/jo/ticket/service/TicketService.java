@@ -1,4 +1,4 @@
-package com.studi.jo.ticket.infra;
+package com.studi.jo.ticket.service;
 
 import com.studi.jo.ticket.domain.Ticket;
 import com.studi.jo.ticket.domain.TicketDTO;

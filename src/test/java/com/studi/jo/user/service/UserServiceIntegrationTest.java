@@ -1,4 +1,4 @@
-package com.studi.jo.user.infra;
+package com.studi.jo.user.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;

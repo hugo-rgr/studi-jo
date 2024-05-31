@@ -1,4 +1,4 @@
-package com.studi.jo.ticket.infra;
+package com.studi.jo.ticket.service;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
