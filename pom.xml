@@ -146,7 +146,7 @@
 					<resourceGroup>jo-1751149757387-rg</resourceGroup>
 					<appName>jo-1751149757387</appName>
 					<pricingTier>B1</pricingTier>
-					<region>westeurope</region>
+					<region>francecentral</region>
 					<runtime>
 						<os>Linux</os>
 						<javaVersion>Java 17</javaVersion>
