@@ -143,8 +143,8 @@
 				<version>2.14.1</version>
 				<configuration>
 					<schemaVersion>v2</schemaVersion>
-					<resourceGroup>jo-1751149757387-rg</resourceGroup>
-					<appName>jo-1751149757387</appName>
+					<resourceGroup>jo-studi-rg</resourceGroup>
+					<appName>jo-spring-webapp</appName>
 					<pricingTier>B1</pricingTier>
 					<region>francecentral</region>
 					<runtime>
